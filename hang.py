@@ -10,13 +10,17 @@ class word():
         self.line = ""
         self.wordlist = ""
 
+    def loadingMessage(self):
+        print "Loading word list from file..."        
+        print "  ", len(self.wordlist), "words loaded."
+
     def loadWords(self):
         self.inFile = open(WORDLIST_FILENAME, 'r', 0)
         self.line = self.inFile.readline()
-        self.wordlist = string.split(self.line)  
-        print "Loading word list from file..."        
-        print "  ", len(self.wordlist), "words loaded."
+        self.wordlist = string.split(self.line)
+        self.loadingMessage()
         return random.choice(self.wordlist)
+        
 
 
 def isWordGuessed(secretWord, lettersGuessed):
@@ -39,8 +43,6 @@ def isWordGuessed(secretWord, lettersGuessed):
 def getGuessedWord():
 
      guessed = ''
-
-
      return guessed
 
 def getAvailableLetters():
