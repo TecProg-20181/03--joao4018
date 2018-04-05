@@ -18,7 +18,6 @@ class word():
         self.inFile = open(WORDLIST_FILENAME, 'r', 0)
         self.line = self.inFile.readline()
         self.wordlist = string.split(self.line)
-        self.loadingMessage()
         return random.choice(self.wordlist)
         
 
@@ -49,9 +48,17 @@ def getAvailableLetters():
     import string
     # 'abcdefghijklmnopqrstuvwxyz'
     available = string.ascii_lowercase
-
-
     return available
+
+def lettersGuessedInWord(secretWord, lettersGuessed):
+    guessed = ''
+    for letter in secretWord:
+        if letter in lettersGuessed:
+            guessed += letter
+        else:
+            guessed += '_ '
+    return guessed
+
 
 def hangman(secretWord):
 
@@ -74,34 +81,21 @@ def hangman(secretWord):
         if letter in lettersGuessed:
 
             guessed = getGuessedWord()
-            for letter in secretWord:
-                if letter in lettersGuessed:
-                    guessed += letter
-                else:
-                    guessed += '_ '
+            guessed = lettersGuessedInWord(secretWord, lettersGuessed)
 
             print 'Oops! You have already guessed that letter: ', guessed
         elif letter in secretWord:
             lettersGuessed.append(letter)
 
             guessed = getGuessedWord()
-            for letter in secretWord:
-                if letter in lettersGuessed:
-                    guessed += letter
-                else:
-                    guessed += '_ '
-
+            guessed = lettersGuessedInWord(secretWord, lettersGuessed)
             print 'Good Guess: ', guessed
         else:
             guesses -=1
             lettersGuessed.append(letter)
 
             guessed = getGuessedWord()
-            for letter in secretWord:
-                if letter in lettersGuessed:
-                    guessed += letter
-                else:
-                    guessed += '_ '
+            guessed = lettersGuessedInWord(secretWord, lettersGuessed)
 
             print 'Oops! That letter is not in my word: ',  guessed
         print '------------'
@@ -116,4 +110,6 @@ def hangman(secretWord):
 
 
 secretWord = word()
-hangman(secretWord.loadWords().lower())
+secret = secretWord.loadWords().lower()
+secretWord.loadingMessage()
+hangman(secret)
