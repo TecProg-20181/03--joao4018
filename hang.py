@@ -21,9 +21,8 @@ class word():
         return random.choice(self.wordlist)
         
 
-
 def isWordGuessed(secretWord, lettersGuessed):
-    secretLetters = []
+#    secretLetters = []
 
 #    for letter in secretWord:
 #        if letter in secretLetters:
@@ -39,14 +38,8 @@ def isWordGuessed(secretWord, lettersGuessed):
 
     return True
 
-def getGuessedWord():
-
-     guessed = ''
-     return guessed
-
 def getAvailableLetters():
     import string
-    # 'abcdefghijklmnopqrstuvwxyz'
     available = string.ascii_lowercase
     return available
 
@@ -79,22 +72,17 @@ def hangman(secretWord):
         print 'Available letters', available
         letter = raw_input('Please guess a letter: ')
         if letter in lettersGuessed:
-
-            guessed = getGuessedWord()
             guessed = lettersGuessedInWord(secretWord, lettersGuessed)
 
             print 'Oops! You have already guessed that letter: ', guessed
         elif letter in secretWord:
             lettersGuessed.append(letter)
-
-            guessed = getGuessedWord()
             guessed = lettersGuessedInWord(secretWord, lettersGuessed)
+            
             print 'Good Guess: ', guessed
         else:
             guesses -=1
             lettersGuessed.append(letter)
-
-            guessed = getGuessedWord()
             guessed = lettersGuessedInWord(secretWord, lettersGuessed)
 
             print 'Oops! That letter is not in my word: ',  guessed
