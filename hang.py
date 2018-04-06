@@ -1,7 +1,7 @@
 import random
 import string
 
-WORDLIST_FILENAME = "palavras.txt"
+WORDLIST_FILENAME = "words.txt"
 
 class readWord():
 
@@ -24,6 +24,22 @@ class game():
 
     def __init__(self):
         self.lettersGuessed = ""
+
+    def letrasDiferentes(self, secretWord):
+        self.count = 0
+        self.count2 = 0
+        self.quantidade = 0
+        while self.count < len(secretWord):
+            self.letra = secretWord[0 + self.count]
+            while self.count2 < len(secretWord) - 1:
+                if self.letra == secretWord[1 + self.count2]:
+                    self.quantidade += 1
+                    self.count2 = len(secretWord)
+                self.count2 += 1
+            self.count += 1
+            self.count2 = self.count
+        print 'Existem'  , len(secretWord) - self.quantidade, 'letras diferentes'
+
     def isWordGuessed(self, secretWord):
     #    secretLetters = []
 
@@ -102,8 +118,11 @@ class game():
 
 
 secretWord = readWord()
+jogo = game()
+
 secret = secretWord.loadWords().lower()
 secretWord.loadingMessage()
-jogo = game()
+
+jogo.letrasDiferentes(secret)
 jogo.printWelcomeMessage(secret)
 jogo.hangman(secret)
