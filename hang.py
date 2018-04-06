@@ -1,5 +1,6 @@
 import random
 import string
+from sets import Set
 
 WORDLIST_FILENAME = "words.txt"
 
@@ -17,28 +18,27 @@ class readWord():
     def loadWords(self):
         self.inFile = open(WORDLIST_FILENAME, 'r', 0)
         self.line = self.inFile.readline()
-        self.wordlist = string.split(self.line)
+        #self.wordlist = string.split(self.line)
+        self.wordlist = ['asdfghjkl', 'sdasdsf']
         return random.choice(self.wordlist)
         
+
+    def letrasDiferentes(self, secretWord):
+        guessinger = Set(list(secretWord))
+        print len(guessinger), 'aaaa', len(secretWord)
+        while len(guessinger) > 8:
+            secretWord = self.loadWords()
+            guessinger = Set(list(secretWord))
+        print 'Existem'  , len(guessinger), 'letras diferentes'
+        return secretWord
+
+
+
 class game():
 
     def __init__(self):
         self.lettersGuessed = ""
-
-    def letrasDiferentes(self, secretWord):
-        self.count = 0
-        self.count2 = 0
-        self.quantidade = 0
-        while self.count < len(secretWord):
-            self.letra = secretWord[0 + self.count]
-            while self.count2 < len(secretWord) - 1:
-                if self.letra == secretWord[1 + self.count2]:
-                    self.quantidade += 1
-                    self.count2 = len(secretWord)
-                self.count2 += 1
-            self.count += 1
-            self.count2 = self.count
-        print 'Existem'  , len(secretWord) - self.quantidade, 'letras diferentes'
+        self.guesses = 8
 
     def isWordGuessed(self, secretWord):
     #    secretLetters = []
@@ -78,7 +78,6 @@ class game():
 
     def hangman(self, secretWord):
 
-        self.guesses = 8
         self.lettersGuessed = []
 
         while  self.isWordGuessed(secretWord) == False and self.guesses >0:
@@ -122,7 +121,6 @@ jogo = game()
 
 secret = secretWord.loadWords().lower()
 secretWord.loadingMessage()
-
-jogo.letrasDiferentes(secret)
+secret = secretWord.letrasDiferentes(secret)
 jogo.printWelcomeMessage(secret)
 jogo.hangman(secret)
