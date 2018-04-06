@@ -3,7 +3,7 @@ import string
 
 WORDLIST_FILENAME = "palavras.txt"
 
-class word():
+class readWord():
 
     def __init__(self):
         self.inFile = ""
@@ -20,84 +20,90 @@ class word():
         self.wordlist = string.split(self.line)
         return random.choice(self.wordlist)
         
+class game():
 
-def isWordGuessed(secretWord, lettersGuessed):
-#    secretLetters = []
+    def __init__(self):
+        self.lettersGuessed = ""
+    def isWordGuessed(self, secretWord):
+    #    secretLetters = []
 
-#    for letter in secretWord:
-#        if letter in secretLetters:
-#            secretLetters.append(letter)
-#        else:
-#            pass
+    #    for letter in secretWord:
+    #        if letter in secretLetters:
+    #            secretLetters.append(letter)
+    #        else:
+    #            pass
 
-    for letter in secretWord:
-        if letter in lettersGuessed:
-            pass
+        for letter in secretWord:
+            if letter in self.lettersGuessed:
+                pass
+            else:
+                return False
+
+        return True
+
+    def getAvailableLetters(self):
+        import string
+        self.available = string.ascii_lowercase
+        return self.available
+
+    def lettersGuessedInWord(self, secretWord):
+        self.guessed = ''
+        for letter in secretWord:
+            if letter in self.lettersGuessed:
+                self.guessed += letter
+            else:
+                self.guessed += '_'
+        return self.guessed
+
+    def printWelcomeMessage(self, secretWord):
+        print 'Welcome to the game, Hangam!'
+        print 'I am thinking of a word that is', len(secretWord), ' letters long.'
+        print '-------------'
+
+    def hangman(self, secretWord):
+
+        self.guesses = 8
+        self.lettersGuessed = []
+
+        while  self.isWordGuessed(secretWord) == False and self.guesses >0:
+            print 'You have ', self.guesses, 'guesses left.'
+
+            self.available = self.getAvailableLetters()
+            for letter in self.available:
+                if letter in self.lettersGuessed:
+                    self.available = self.available.replace(letter, '')
+
+            print 'Available letters', self.available
+            letter = raw_input('Please guess a letter: ')
+            if letter in self.lettersGuessed:
+                self.guessed = self.lettersGuessedInWord(secretWord)
+
+                print 'Oops! You have already guessed that letter: ', self.guessed
+            elif letter in secretWord:
+                self.lettersGuessed.append(letter)
+                self.guessed = self.lettersGuessedInWord(secretWord)
+                
+                print 'Good Guess: ', self.guessed
+            else:
+                self.guesses -=1
+                self.lettersGuessed.append(letter)
+                self.guessed = self.lettersGuessedInWord(secretWord)
+
+                print 'Oops! That letter is not in my word: ',  self.guessed
+            print '------------'
+
         else:
-            return False
-
-    return True
-
-def getAvailableLetters():
-    import string
-    available = string.ascii_lowercase
-    return available
-
-def lettersGuessedInWord(secretWord, lettersGuessed):
-    guessed = ''
-    for letter in secretWord:
-        if letter in lettersGuessed:
-            guessed += letter
-        else:
-            guessed += '_ '
-    return guessed
-
-
-def hangman(secretWord):
-
-    guesses = 8
-    lettersGuessed = []
-    print 'Welcome to the game, Hangam!'
-    print 'I am thinking of a word that is', len(secretWord), ' letters long.'
-    print '-------------'
-
-    while  isWordGuessed(secretWord, lettersGuessed) == False and guesses >0:
-        print 'You have ', guesses, 'guesses left.'
-
-        available = getAvailableLetters()
-        for letter in available:
-            if letter in lettersGuessed:
-                available = available.replace(letter, '')
-
-        print 'Available letters', available
-        letter = raw_input('Please guess a letter: ')
-        if letter in lettersGuessed:
-            guessed = lettersGuessedInWord(secretWord, lettersGuessed)
-
-            print 'Oops! You have already guessed that letter: ', guessed
-        elif letter in secretWord:
-            lettersGuessed.append(letter)
-            guessed = lettersGuessedInWord(secretWord, lettersGuessed)
-            
-            print 'Good Guess: ', guessed
-        else:
-            guesses -=1
-            lettersGuessed.append(letter)
-            guessed = lettersGuessedInWord(secretWord, lettersGuessed)
-
-            print 'Oops! That letter is not in my word: ',  guessed
-        print '------------'
-
-    else:
-        if isWordGuessed(secretWord, lettersGuessed) == True:
-            print 'Congratulations, you won!'
-        else:
-            print 'Sorry, you ran out of guesses. The word was ', secretWord, '.'
+            if self.isWordGuessed(secretWord) == True:
+                print 'Congratulations, you won!'
+            else:
+                print 'Sorry, you ran out of guesses. The word was ', secretWord, '.'
 
 
 
 
-secretWord = word()
+secretWord = readWord()
 secret = secretWord.loadWords().lower()
 secretWord.loadingMessage()
-hangman(secret)
+jogo = game()
+jogo.printWelcomeMessage(secret)
+jogo.hangman(secret)
