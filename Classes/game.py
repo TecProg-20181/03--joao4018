@@ -2,10 +2,9 @@ import string
 
 class Game():
 
-    def __init__(self,secretWord, number):
-        self.guesses = number
-        self.secretWord = secretWord
-
+    def __init__(self):
+        self.guesses = 8
+        self.secretWord = ""
     def isWordGuessed(self):
     #    secretLetters = []
 
@@ -42,9 +41,13 @@ class Game():
         print 'I am thinking of a word that is', len(self.secretWord), ' letters long.'
         print '-------------'
 
-    def hangman(self):
+    def hangman(self,secretWord, number):
 
+
+        self.guesses = number
+        self.secretWord = secretWord
         self.lettersGuessed = []
+        self.printWelcomeMessage
 
         while  self.isWordGuessed() == False and self.guesses >0:
             print 'You have ', self.guesses, 'guesses left.'
@@ -77,4 +80,4 @@ class Game():
             if self.isWordGuessed() == True:
                 print 'Congratulations, you won!'
             else:
-                print 'Sorry, you ran out of guesses. The word was ', self.secretWord, '.'
+                print 'Sorry, you ran out of guesses. The word was', self.secretWord, '.'
