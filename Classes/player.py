@@ -9,7 +9,7 @@ class Player():
 
     def numberOfGuesses(self):
         print 'You can only play with words that have'
-        print 'the same number of letter as or less than'
+        print 'the same number of letter or less than'
         print 'the number of guesses'
         while True:
             try:
@@ -18,4 +18,4 @@ class Player():
             except ValueError:
                 print "Oops!  That was no valid number.  Try again..."
                 print '----------------------------------------------'
-        print 'Cool you have', self.__guesses, 'guesses'
+        print 'Cool! You have', self.__guesses, 'guesses'

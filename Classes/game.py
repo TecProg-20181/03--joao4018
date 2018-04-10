@@ -5,15 +5,8 @@ class Game():
     def __init__(self):
         self.guesses = 8
         self.secretWord = ""
+        
     def isWordGuessed(self):
-    #    secretLetters = []
-
-    #    for letter in secretWord:
-    #        if letter in secretLetters:
-    #            secretLetters.append(letter)
-    #        else:
-    #            pass
-
         for letter in self.secretWord:
             if letter in self.lettersGuessed:
                 pass
