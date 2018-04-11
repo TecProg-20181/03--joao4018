@@ -9,8 +9,8 @@ Caso acerte toda a palavra, ele vence. Caso contrário, perde.
 Projeto
 ------
 
-O projeto contém dois arquivos principais.
-O código do programa está no arquivo `hang.py`.
+O projeto contém quatro arquivos principais.
+O código do programa está no arquivo `main.py` e arquivos na pasta `Classes/`'.
 É necessário um arquivo que contenha as palavras que podem ser escolhidas.
 Nesse projeto estão dois arquivos de exemplo `words.txt` e `palavras.txt`.
 O arquivo a ser utilizado como pool de palavras está designado no código-fonte.
@@ -21,6 +21,6 @@ Rodar o projeto
 Para executar o projeto, use o comando:
 
 ```
-python hang.py
+python main.py
 ```
 

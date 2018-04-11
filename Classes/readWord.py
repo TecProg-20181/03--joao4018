@@ -3,23 +3,25 @@ import string
 from sets import Set
 
 WORDLIST_FILENAME = "TextFile/words.txt"
-GUESSES = 8
+
 class ReadWord():
 
     def __init__(self):
-        self.inFile = ""
-        self.line = ""
-        self.wordlist = ""
+        self.__inFile = ""
+        self.__line = ""
+        self.__wordlist = ""
+
 
     def loadingMessage(self):
         print "Loading word list from file..."        
-        print "  ", len(self.wordlist), "words loaded."
+        print "  ", len(self.__wordlist), "words loaded."
 
     def readWords(self):
-        self.inFile = open(WORDLIST_FILENAME, 'r', 0)
-        self.line = self.inFile.readline()
-        self.wordlist = string.split(self.line)
-        return random.choice(self.wordlist)
+        self.__inFile = open(WORDLIST_FILENAME, 'r', 0)
+        self.__line = self.__inFile.readline()
+        self.__wordlist = string.split(self.__line)
+        # self.__wordlist = ['abc','ab','abcd']
+        return random.choice(self.__wordlist)
 
 
     def reLoadWord(self,word, guesses):
@@ -31,7 +33,7 @@ class ReadWord():
             print 'Impossible to guess with', guesses, 'guesses'
             print 'We are looking for a new word. Wait a moment'
             print '---------------------------------------------'
-            secretWord = self.readWords()
+            secretWord = self.readWords().lower()
             guessinger = Set(list(secretWord))
         print 'There is '  , len(guessinger), ' different letters'
         return secretWord

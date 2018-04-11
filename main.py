@@ -12,5 +12,5 @@ player.numberOfGuesses()
 secret = secretWord.readWords().lower()
 guesses = player.getGuesses()
 
-secretWord.reLoadWord(secret, guesses)
+secret = secretWord.reLoadWord(secret, guesses)
 jogo.hangman(secret, guesses)
