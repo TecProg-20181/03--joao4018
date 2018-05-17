@@ -5,12 +5,10 @@ from Classes.player import Player
 
 secretWord = ReadWord()
 player = Player()
-jogo = Game()
-
-player.numberOfGuesses()
+game = Game()
 
 secret = secretWord.readWords().lower()
 guesses = player.getGuesses()
 
 secret = secretWord.reLoadWord(secret, guesses)
-jogo.hangman(secret, guesses)
+game.hangman(secret, guesses)

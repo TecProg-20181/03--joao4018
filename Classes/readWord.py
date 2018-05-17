@@ -1,6 +1,7 @@
 import random
 import string
 from sets import Set
+import sys
 
 WORDLIST_FILENAME = "TextFile/words.txt"
 
@@ -17,10 +18,13 @@ class ReadWord():
         print "  ", len(self.__wordlist), "words loaded."
 
     def readWords(self):
-        self.__inFile = open(WORDLIST_FILENAME, 'r', 0)
+        try:
+            self.__inFile = open(WORDLIST_FILENAME, 'r', 0)
+        except IOError as (errno, strerror):
+            print "I/O error({0}): {1}".format(errno, strerror)
+            sys.exit()
         self.__line = self.__inFile.readline()
         self.__wordlist = string.split(self.__line)
-        # self.__wordlist = ['abc','ab','abcd']
         return random.choice(self.__wordlist)
 
 

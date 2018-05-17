@@ -16,7 +16,6 @@ class Game():
         return True
 
     def __getAvailableLetters(self):
-        import string
         self.available = string.ascii_lowercase
         return self.available
 
