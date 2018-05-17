@@ -7,8 +7,6 @@ secretWord = ReadWord()
 player = Player()
 game = Game()
 
-secret = secretWord.readWords().lower()
 guesses = player.getGuesses()
-
-secret = secretWord.reLoadWord(secret, guesses)
+secret = secretWord.reloadWord(guesses)
 game.hangman(secret, guesses)
