@@ -12,7 +12,7 @@ class Player():
     def __printWelcome(self):
         print '------------------------------------------'
         print '|---------Welcome Hangman Game-----------|'
-        print '| You can only play with words that have |'
+        print '| You can play with words that have |'
         print '| the same number of letter or less than |'
         print '| the number of guesses                  |'
         print '------------------------------------------\n'
@@ -28,9 +28,14 @@ class Player():
                 self.__logger.error('Value entered is not number')
                 print "Oops!  That was no valid number.  Try again..."
                 print '----------------------------------------------'
-        if(self.__guesses < 0):
+        if(self.__guesses < 1):
             self.__logger.warn('Value entered is number less than or equal to 0 number: %d', self.__guesses)
             print 'You entered that number ' + str(self.__guesses) + ' that is less than or equal to 0'
+            print ''
+            answer = raw_input('Do you want to restart the game? Y/N: ')
+            if answer not in ['Y', 'y']:
+                print 'Bye'
+                sys.exit()
             print '----------------------------------------------'
             return self.__numberOfGuesses()
         print 'Cool! You have', self.__guesses, 'guesses\n'

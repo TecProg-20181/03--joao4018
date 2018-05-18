@@ -60,9 +60,9 @@ class ReadWord():
             self.__logger.error('Delay in while')
             print 'it was not possible to find a word with the same or less '
             print 'quantity than your guesses'
-            answer = raw_input('impossible to win wish to continue Y/N: ')
-            print('\n')
+            answer = raw_input('its very hard to win, wish to continue Y/N: ')
             if answer not in ['Y', 'y']:
+                print 'Bye'
                 sys.exit()
         print 'There is '  , len(self.__guessinger), ' different letters'
         return self.__secretword
