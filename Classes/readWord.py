@@ -9,7 +9,7 @@ WORDLIST_FILENAME = "TextFile/words.txt"
 class ReadWord():
 
     def __init__(self):
-        logging.basicConfig(filename='log.log',level=logging.INFO)
+        logging.basicConfig(filename='logFile.log',level=logging.INFO)
         self.__logger = logging.getLogger(__name__)
         self.__inFile = ""
         self.__line = ""
@@ -32,15 +32,16 @@ class ReadWord():
             self.__logger.error('File not found: %s', WORDLIST_FILENAME)
             sys.exit()
         self.__line = self.__inFile.readline()
+        self.__inFile.close()
         self.__wordlist = string.split(self.__line)
         self.__listwords = self.__wordlist
 
 
-    def reloadWord(self, guesses):
+    def loadWord(self, guesses=3):
         self.__secretword = random.choice(self.__listwords).lower()
         try:
             self.__guessinger = Set(list(self.__secretword))
-            self.__logger.info('Success')
+            self.__logger.info('Success convert Set(list(self.__secretword)')
         except:
             print 'verify that the file is not wrong, corrupted, or has a reading problem'
             self.__logger.error('Problem with data received by file')
@@ -49,7 +50,7 @@ class ReadWord():
             if len(self.__guessinger) > guesses:
                 self.__logger.warn('insufficient guessinger: %d', len(self.__guessinger))
                 self.__secretword = random.choice(self.__listwords).lower()
-                return self.reloadWord(guesses)
+                return self.loadWord(guesses)
         except RuntimeError:
             self.__logger.error('Delay in while')
             print 'it was not possible to find a word with the same or less '
