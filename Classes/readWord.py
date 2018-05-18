@@ -16,42 +16,46 @@ class ReadWord():
         self.__wordlist = ""
         self.__secretword = ""
         self.__guessinger = ""
+        self.__listwords = ""
 
     def loadingMessage(self):
         print "Loading word list from file..."        
         print "  ", len(self.__wordlist), "words loaded."
 
-    def __readWords(self):
+    def readWords(self):
         try:
             self.__inFile = open(WORDLIST_FILENAME, 'r', 0)
-            self.__logger.info('Open file')
+            self.__logger.info('Open file: %s', WORDLIST_FILENAME)
 
         except IOError as (errno, strerror):
             print "I/O error({0}): {1}".format(errno, strerror)
-            self.__logger.error('File not found')
+            self.__logger.error('File not found: %s', WORDLIST_FILENAME)
             sys.exit()
         self.__line = self.__inFile.readline()
         self.__wordlist = string.split(self.__line)
-        return random.choice(self.__wordlist)
+        self.__listwords = self.__wordlist
 
 
     def reloadWord(self, guesses):
-        self.__secretword = self.__readWords()
+        self.__secretword = random.choice(self.__listwords).lower()
         try:
             self.__guessinger = Set(list(self.__secretword))
             self.__logger.info('Success')
         except:
             print 'verify that the file is not wrong, corrupted, or has a reading problem'
             self.__logger.error('Problem with data received by file')
-            sys.exit()
-        print 'There is ', len(self.__guessinger),' different letters'
-        print 'The word was', self.__secretword
-        print 'Impossible to guess with', guesses, 'guesses'
-        print 'We are looking for a new word. Wait a moment'
-        print '---------------------------------------------'
-        if len(self.__guessinger) > guesses:
-            self.__logger.warn('negative number entered')
-            self.__secretword = self.__readWords().lower()
-            return self.reloadWord(guesses)
+            sys.exit()           
+        try:
+            if len(self.__guessinger) > guesses:
+                self.__logger.warn('insufficient guessinger: %d', len(self.__guessinger))
+                self.__secretword = random.choice(self.__listwords).lower()
+                return self.reloadWord(guesses)
+        except RuntimeError:
+            self.__logger.error('Delay in while')
+            print 'it was not possible to find a word with the same or less '
+            print 'quantity than your guesses'
+            answer = raw_input('impossible to win wish to continue Y/N: ')
+            if answer not in ['Y', 'y']:
+                sys.exit()
         print 'There is '  , len(self.__guessinger), ' different letters'
         return self.__secretword

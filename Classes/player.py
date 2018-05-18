@@ -6,6 +6,7 @@ class Player():
         self.__guesses = 8
         logging.basicConfig(filename='log.log',level=logging.INFO)
         self.__logger = logging.getLogger(__name__)
+        self.__logger.info('Hangman')
 
     def __numberOfGuesses(self):
         print 'You can only play with words that have'
@@ -21,7 +22,7 @@ class Player():
                 print "Oops!  That was no valid number.  Try again..."
                 print '----------------------------------------------'
         if(self.__guesses < 0):
-            self.__logger.warn('Value entered is number less than or equal to 0')
+            self.__logger.warn('Value entered is number less than or equal to 0 number: %d', self.__guesses)
             print 'You entered that number ' + str(self.__guesses) + ' that is less than or equal to 0'
             print '----------------------------------------------'
             return self.__numberOfGuesses()
