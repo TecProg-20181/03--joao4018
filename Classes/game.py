@@ -9,10 +9,10 @@ class Game():
         self.__guesses = 8
         self.__secretWord = ""
         self.__letter = ""
-        self.__lettersGuessed = ""
         self.__available = ""
         self.__guessed = ""
-        
+        self.__lettersGuessed = []
+
     def __isWordGuessed(self):
         for self.__letter in self.__secretWord:
             if self.__letter in self.__lettersGuessed:
@@ -57,7 +57,6 @@ class Game():
         self.__logger.info('start Hangman Game')
         self.__guesses = number
         self.__secretWord = secretWord
-        self.__lettersGuessed = []
         self.__printWelcomeMessage
 
         while  self.__isWordGuessed() == False and self.__guesses >0:
@@ -81,13 +80,12 @@ class Game():
             else:
                 self.__removeChance()
 
-            print '------------'
+            print '\n'
 
+        if self.__isWordGuessed() == True:
+            self.__logger.info('Finish game: Win')
+            print 'Congratulations, you won!'
+            
         else:
-            if self.__isWordGuessed() == True:
-                self.__logger.info('Finish game: Win')
-                print 'Congratulations, you won!'
-                
-            else:
-                print 'guessLorry, you ran out of guesses. The word was', self.__secretWord, '.'
-                self.__logger.info('Finish game: Lose')
+            print 'guessLorry, you ran out of guesses. The word was', self.__secretWord, '.'
+            self.__logger.info('Finish game: Lose')

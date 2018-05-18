@@ -38,6 +38,11 @@ class ReadWord():
 
 
     def loadWord(self, guesses=3):
+        if self.__listwords == None:
+            print 'file found empty'
+            self.__logger.error('file found empty = None')
+            sys.exit()
+
         self.__secretword = random.choice(self.__listwords).lower()
         try:
             self.__guessinger = Set(list(self.__secretword))
@@ -56,6 +61,7 @@ class ReadWord():
             print 'it was not possible to find a word with the same or less '
             print 'quantity than your guesses'
             answer = raw_input('impossible to win wish to continue Y/N: ')
+            print('\n')
             if answer not in ['Y', 'y']:
                 sys.exit()
         print 'There is '  , len(self.__guessinger), ' different letters'
